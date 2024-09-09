@@ -5,29 +5,20 @@ public class Lecturer extends Character{
 
     @Override
     public void RagEffect() {
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".RagEffect()");
-
+        System.out.println(name + " knocked out");
         this.knockoutTimer = 1;
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
-
     }
 
 
     @Override
     public void Notify(Character c) {
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".Notify(" + c.name + ")");
-
         if(this.knockoutTimer == 0)
             c.See(this);
+    }
 
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
+    @Override
+    public boolean Accept(CharacterTypeVisitor v) {
+        return v.visit(this);
     }
 
     @Override
@@ -38,5 +29,9 @@ public class Lecturer extends Character{
     @Override
     public void See(Lecturer l) {
         return;
+    }
+
+    public void See(Cleaner c){
+        c.See(this);
     }
 }

@@ -10,8 +10,14 @@ public class Rag extends Item{
     }
 
     @Override
+    public String GetInfo() {
+        return String.valueOf(this.duration);
+    }
+
+    @Override
     public void Update(){
         duration--;
+        notifyObservers();
         if(duration == 0){
             owner.DeleteExpiredItem(this);
         }

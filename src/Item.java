@@ -1,45 +1,29 @@
-public abstract class Item {
-    protected Character owner;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-    public String name; //Csak a Skeleton osztály miatt, getter/setterrel emiatt nem foglalkozunk.
+public abstract class Item implements Serializable {
+    protected Character owner;
+    protected ArrayList<ModelObserver> observers = new ArrayList<>();
+    public String name;
 
     public Item(String n){
         this.name = n;
-        System.out.println(name + " constructed");
-    }
-
-    protected void WriteIndents(int n){
-        for(int i = 0; i < n; ++i){
-            System.out.print('\t');
-        }
+        System.out.println(name + " created");
     }
 
     /**
      * Ha lehet hasznalni a targyat, akkor kifejti a hatasat, kulonben siman visszater.
      */
     public void Use(){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".Use()");
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
         return;
     }
 
 
     /**
-     * A targynak a felveteli esemenye. Emellett beallitja a targynak a tulajdonosat arra a kerakterre, aki felvette.
+     * A targynak a felveteli esemenye. Emellett beallitja a targynak a tulajdonosat arra a karakterre, aki felvette.
      */
     public void PickedUp(Character c){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".PickedUp(" + c.name + ")");
-
         this.SetOwner(c);
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
     }
 
     /**
@@ -68,14 +52,7 @@ public abstract class Item {
      * Eltavolitja a targy tulajdonosat (=null)
      */
     public void RemoveOwner(){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".Use()");
-
         this.owner = null;
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + "void");
     }
 
     /**
@@ -84,4 +61,16 @@ public abstract class Item {
      * @return A visitor visit() fuggvenyenek visszaterese.
      */
     public abstract boolean Accept(ItemVisitor v);
+
+    protected void notifyObservers() {
+        for (ModelObserver observer : observers) {
+            observer.onModelUpdate();
+        }
+    }
+
+    public Character getOwner(){
+        return this.owner;
+    }
+
+    public abstract String GetInfo();
 }

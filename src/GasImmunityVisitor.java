@@ -1,9 +1,4 @@
 public class GasImmunityVisitor implements ItemVisitor{
-    public GasImmunityVisitor(){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println("GasImmunityVisitor v consturected");
-    }
 
     @Override
     public boolean visit(Beer b) {
@@ -27,14 +22,8 @@ public class GasImmunityVisitor implements ItemVisitor{
 
     @Override
     public boolean visit(Mask m) {
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println("v" + ".visit(" + m.name + ")");
-
+        System.out.println(m.name + " activated");
         m.ReduceDurability();
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + "v" + ", bool: true");
         return true;
     }
 
@@ -47,4 +36,7 @@ public class GasImmunityVisitor implements ItemVisitor{
     public boolean visit(SlideRule s) {
         return false;
     }
+
+    @Override
+    public boolean visit(AirFreshener a) { return false; }
 }

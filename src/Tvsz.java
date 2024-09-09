@@ -1,8 +1,10 @@
 public class Tvsz extends Item{
     private int durability = 3;
+    private final boolean valid;
 
-    public Tvsz(String n) {
+    public Tvsz(String n, boolean b) {
         super(n);
+        this.valid = b;
     }
 
 
@@ -10,28 +12,22 @@ public class Tvsz extends Item{
      * Csokkenti a tvsz tartossagat (durability). Ha 0-ra csokken, akkor eldobatja magat.
      */
     public void ReduceDurability(){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".ReduceDurability()");
-
         this.durability--;
+        notifyObservers();
+        System.out.println(name + " durability -= 1");
         if(this.durability == 0){
             this.owner.DeleteExpiredItem(this);
         }
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
     }
     public boolean Accept(ItemVisitor v) {
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".Accept(v)");
+        if(valid)
+            return v.visit(this);
+        else
+            return false;
+    }
 
-        boolean b = v.visit(this);
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", bool: " + b);
-
-        return b;
+    @Override
+    public String GetInfo() {
+        return String.valueOf(this.durability);
     }
 }

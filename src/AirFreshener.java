@@ -1,8 +1,10 @@
-public class Camembert extends Item{
-    public Camembert(String n) {
+public class AirFreshener extends Item{
+
+    public AirFreshener(String n) {
         super(n);
     }
 
+    @Override
     public boolean Accept(ItemVisitor v) {
         return v.visit(this);
     }
@@ -14,7 +16,7 @@ public class Camembert extends Item{
 
     @Override
     public void Use(){
-        owner.getRoom().SetGas(true);
-        owner.DeleteExpiredItem(this);
+        this.owner.getRoom().SetGas(false);
+        this.owner.DeleteExpiredItem(this);
     }
 }

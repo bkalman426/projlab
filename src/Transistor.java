@@ -11,27 +11,15 @@ public class Transistor extends Item{
      * @param t A masik transistor.
      */
     public void setPair(Transistor t){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".setPair(" + t.name + ")");
-
         this.pair = t;
-
-        WriteIndents(indents);
-        System.out.println("Visszateres: " + name + ", void");
     }
     @Override
     public void Accept(Transistor tr){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".Accept(" + tr.name + ")");
         if(this.pair == null && tr != this){
             tr.setPair(this);
             this.setPair(tr);
+            System.out.println(tr.name + " connected to " + name);
         }
-        WriteIndents(indents);
-        System.out.println("Visszateres: " + name + ", void");
-
     }
 
     @Override
@@ -39,32 +27,33 @@ public class Transistor extends Item{
         return v.visit(this);
     }
 
+    @Override
+    public String GetInfo() {
+        if(this.pair == null)
+            return "";
+        else if(this.pair.dest == null)
+            return "paired";
+        else
+            return "usable";
+    }
+
     /**
      * Visszaadja a tranzisztor celszobajat
      * @return A celszoba
      */
     public Room GetRoom(){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".GetRoom()");
-
-        WriteIndents(indents);
-        System.out.println("Visszateres: " + name + ", Room: " + this.dest.name);
         return this.dest;
     }
 
     @Override
     public void Use(){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".Use()");
-
         if(this.pair == null){
             for(Item i : owner.getItems())
                 i.Accept(this);
         }
         else if(pair.dest == null){
             this.SetRoom(owner.getRoom());
+            System.out.println(name + " destination " + owner.getRoom().name);
             owner.DropItem(this);
         }
         else {
@@ -72,26 +61,21 @@ public class Transistor extends Item{
             pair.GetRoom().MoveAccept(owner);
             owner.DeleteExpiredItem(this);
             r.addItem(this);
+            this.SetRoom(r);
             this.RemoveOwner();
         }
-
-        WriteIndents(indents);
-        System.out.println("Visszateres: " + name + ", void");
     }
-
-
     /**
      * Beallitja a tranzisztor celszobajat
      * @param r A celszoba
      */
     public void SetRoom(Room r){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".SetRoom(" + r.name + ")");
-
         this.dest = r;
+    }
 
-        WriteIndents(indents);
-        System.out.println("Visszateres: " + name + ", void");
+    @Override
+    public void PickedUp(Character c){
+        this.SetOwner(c);
+        this.SetRoom(null);
     }
 }

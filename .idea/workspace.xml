@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0a720670-08c8-4813-ac43-f6b5091395de" name="Changes" comment="complete skeleton">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Projlab.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AirFreshener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CharacterView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Cleaner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/EndGameFrame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GameFrame.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ItemView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ModelObserver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/RoomView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/StartFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Beer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Beer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Camembert.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camembert.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Character.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Character.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GasImmunityVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GasImmunityVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ItemVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ItemVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Lecturer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Lecturer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LecturerProtectionVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LecturerProtectionVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Mask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Mask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Rag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Rag.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/RagVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/RagVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Skeleton.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SlideRule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SlideRule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Transistor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Transistor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tvsz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tvsz.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/GameController.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2e0JFRuN4VlgGkMepTfAEYOtn3X" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-b114ca120d71-intellij.indexing.shared.core-IU-242.21829.142" />
+        <option value="bundled-js-predefined-d6986cc7102b-7c0b70fcd90d-JavaScript-IU-242.21829.142" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0a720670-08c8-4813-ac43-f6b5091395de" name="Changes" comment="" />
+      <created>1711035460410</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711035460410</updated>
+      <workItem from="1711035461508" duration="2512000" />
+      <workItem from="1711041718186" duration="1037000" />
+      <workItem from="1711054070896" duration="1044000" />
+      <workItem from="1711205691545" duration="2349000" />
+      <workItem from="1711216727767" duration="1473000" />
+      <workItem from="1711231249711" duration="1218000" />
+      <workItem from="1711267074064" duration="20085000" />
+      <workItem from="1711320164993" duration="122000" />
+      <workItem from="1711322401067" duration="7463000" />
+      <workItem from="1711352715359" duration="6089000" />
+      <workItem from="1711360959224" duration="326000" />
+      <workItem from="1712047199881" duration="810000" />
+      <workItem from="1712132470242" duration="428000" />
+      <workItem from="1712417204920" duration="1323000" />
+      <workItem from="1712424146119" duration="232000" />
+      <workItem from="1712484363657" duration="12000" />
+      <workItem from="1712563927652" duration="2116000" />
+      <workItem from="1712578772157" duration="785000" />
+      <workItem from="1713115095269" duration="974000" />
+      <workItem from="1713461027329" duration="1529000" />
+      <workItem from="1714116394785" duration="2128000" />
+      <workItem from="1714377507610" duration="22646000" />
+      <workItem from="1714419821045" duration="11731000" />
+      <workItem from="1714448528282" duration="1244000" />
+      <workItem from="1714723280283" duration="1249000" />
+      <workItem from="1714741881346" duration="2305000" />
+      <workItem from="1714833711766" duration="1046000" />
+      <workItem from="1714901388170" duration="4533000" />
+      <workItem from="1714907030799" duration="23695000" />
+      <workItem from="1714971249852" duration="1881000" />
+      <workItem from="1715521036307" duration="3599000" />
+      <workItem from="1715601442563" duration="2274000" />
+      <workItem from="1715688893717" duration="2924000" />
+      <workItem from="1715709676332" duration="1380000" />
+      <workItem from="1715760307630" duration="704000" />
+      <workItem from="1715774004256" duration="4316000" />
+      <workItem from="1715848498638" duration="1877000" />
+      <workItem from="1715870898303" duration="1286000" />
+      <workItem from="1715872224340" duration="412000" />
+      <workItem from="1715937546189" duration="4507000" />
+      <workItem from="1715942469068" duration="1519000" />
+      <workItem from="1715967369036" duration="3743000" />
+      <workItem from="1716020814513" duration="2688000" />
+      <workItem from="1716045677315" duration="3883000" />
+      <workItem from="1716196358012" duration="3377000" />
+      <workItem from="1716215111638" duration="2990000" />
+      <workItem from="1716236402303" duration="749000" />
+      <workItem from="1716277370114" duration="6461000" />
+      <workItem from="1716314059926" duration="57000" />
+      <workItem from="1716315152748" duration="225000" />
+      <workItem from="1716315715497" duration="147000" />
+      <workItem from="1716315905952" duration="418000" />
+      <workItem from="1716386235271" duration="390000" />
+      <workItem from="1716386714309" duration="111000" />
+      <workItem from="1725875106765" duration="54000" />
+    </task>
+    <task id="LOCAL-00001" summary="complete skeleton">
+      <option name="closed" value="true" />
+      <created>1712417465618</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1712417465618</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="complete skeleton" />
+    <option name="LAST_COMMIT_MESSAGE" value="complete skeleton" />
+  </component>
+</project>

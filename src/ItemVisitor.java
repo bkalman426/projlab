@@ -1,10 +1,4 @@
 public interface ItemVisitor {
-    default void WriteIndents(int n){
-        for(int i = 0; i < n; ++i){
-            System.out.print('\t');
-        }
-    }
-
     /**
      * A visitor sort latogat meg
      * @param b A sor
@@ -47,4 +41,11 @@ public interface ItemVisitor {
      * @return
      */
     public boolean visit(SlideRule s);
+
+    /**
+     * A visitor legfrissitot latogat
+     * @param a A legfrissito
+     * @return
+     */
+    public boolean visit(AirFreshener a);
 }

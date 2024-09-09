@@ -1,57 +1,53 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public abstract class Character {
-    protected int actions;
-    public String name; //Csak a Skeleton osztály miatt, getter/setterrel emiatt nem foglalkozunk.
-
-    Scanner sc = new Scanner(System.in); //Skeleton miatt
+public abstract class Character implements Serializable {
+    protected int actions = 5;
+    public String name;
     protected final int capacity = 5;
+
     protected int knockoutTimer;
     protected ArrayList<Item> inventory = new ArrayList<Item>();
-    protected Room room;
 
-    //Csak fuggvenykiirashoz
-    protected void WriteIndents(int n){
-        for(int i = 0; i < n; ++i){
-            System.out.print('\t');
-        }
-    }
+    private ArrayList<ModelObserver> observers = new ArrayList<>();
+
+    protected Room room;
 
     public Character(String n){
         this.name = n;
-        System.out.println(name + " constructed");
+        System.out.println(name + " created");
     }
 
     /**
-     * A karakter kifejezi a mozgasra valo szandekat. Ezutan atmehet egy szomszedos szobaba
+     * A karakter megkiserel atmozogni a parameterkent kapott szobaba
+     * @param r A szoba amibe atmozogni kivan
      */
-    public void Move(){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".Move()");
+    public void Move(Room r){
+        if(!isStunned() && actions != 0){
+            if(r != null && this.room.getNeighbours().contains(r)){
+                    --actions;
+                    r.MoveAccept(this);
+            }
+            else
+                System.out.println(name + " move " + r.name + " fail");
+        }
+    }
 
-        ArrayList<Room> choices = room.getNeighbours();
-        int selection = 0;
-        if(!choices.isEmpty())
-            choices.get(selection).MoveAccept(this);
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
+    /**
+     * Visszatolti a karakter akcioit es csokkenti a kabitottsagi idejet
+     */
+    public void Update(){
+        actions = 5;
+        if(knockoutTimer > 0)
+            --knockoutTimer;
     }
 
     /**
      * Elhagyja a karakter szobajat
      */
     public void Leave(){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".Leave()");
-
         this.room.LeaveRoom(this);
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
     }
 
     /**
@@ -59,14 +55,7 @@ public abstract class Character {
      * @param r AZ uj szoba
      */
     public void SetRoom(Room r){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".SetRoom(" + r.name + ")");
-
         this.room = r;
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
     }
 
     /**
@@ -74,14 +63,12 @@ public abstract class Character {
      * @param i A hasznalando targy
      */
     public void UseItem(Item i){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".UseItem(" + i.name + ")");
-
-        i.Use();
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
+        if(!isStunned() && actions != 0){
+            --actions;
+            System.out.println(name + " use " + i.name);
+            i.Use();
+            notifyObservers();
+        }
     }
 
     /**
@@ -90,26 +77,28 @@ public abstract class Character {
      */
     public void Add(Item i){
         this.inventory.add(i);
+        i.SetOwner(this);
+        System.out.println(i.name + " added to " + name);
     }
 
     /**
-     * Jelzi a jatekosnak a szandekat a targyfelvetelre. Ezutan felvehet egy targyat
+     * A karakter megkiserli felvenni a parameterkent kapott targyat
+     * @param i A felvenni megkiserelt targy
      */
-    public void PickUpItem(){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".PickUpItem()");
-
-        ArrayList<Item> choices = this.room.getItems();
-        int selection = 0;
-        if(this.inventory.size() < this.capacity && !choices.isEmpty()){
-            this.inventory.add(choices.get(selection));
-            choices.get(selection).PickedUp(this);
-            this.room.Remove(choices.get(selection));
+    public void PickUpItem(Item i){
+        if(!isStunned() && actions != 0){
+            if(i != null &&  this.getRoom().getItems() != null && this.getRoom().getItems().contains(i) && this.inventory.size() < capacity){
+                --actions;
+                System.out.println(name + " take " + i.name);
+                this.inventory.add(i);
+                i.PickedUp(this);
+                this.getRoom().Remove(i);
+                notifyObservers();
+            }
+            else if(i != null){
+                System.out.println(name + " take " + i.name + " fail");
+            }
         }
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
     }
 
     /**
@@ -117,14 +106,9 @@ public abstract class Character {
      * @param i Az eltavolitando targy
      */
     public void DeleteExpiredItem(Item i){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".DeleteExpiredItem(" + i.name + ")");
-
         this.inventory.remove(i);
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
+        notifyObservers();
+        System.out.println(i.name + " deleted");
     }
 
     /**
@@ -132,16 +116,6 @@ public abstract class Character {
       * @return A karakter eszkoztara
      */
     public ArrayList<Item> getItems(){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".getItems()");
-
-        WriteIndents(indents);
-        System.out.print("Visszateres:" + name + ", Item: ");
-        for(Item i: this.inventory)
-            System.out.print(i.name + " ");
-        System.out.println();
-
         return this.inventory;
     }
 
@@ -150,13 +124,6 @@ public abstract class Character {
      * @return A jelenlegi szoba
      */
     public Room getRoom(){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".getRoom()");
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", Room: " + this.room.name);
-
         return this.room;
     }
 
@@ -165,44 +132,55 @@ public abstract class Character {
      * @param i Az eldobando targy
      */
     public void DropItem(Item i){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".DropItem(" + i.name + ")");
-
-        this.room.addItem(i);
-        i.RemoveOwner();
-        this.inventory.remove(i);
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
+        if(!isStunned()){
+            System.out.println(name + " drop " + i.name);
+            this.room.addItem(i);
+            i.RemoveOwner();
+            this.inventory.remove(i);
+            notifyObservers();
+        }
     }
 
     /**
      * Kifejti egy gazos szoba hatasat a karakteren. Ha nincs vedelme akkor elkabul es eldob minden targyat
      */
     public void GasRoomEffect(){
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".GasRoomEffect()");
-
-
-        GasImmunityVisitor v = new GasImmunityVisitor();
-        boolean found = false;
-        for(Item i: this.inventory){
-            if(i.Accept(v)){
-                found = true;
-                break;
+        if(!isStunned()){
+            GasImmunityVisitor v = new GasImmunityVisitor();
+            boolean found = false;
+            for(Item i: this.inventory){
+                if(i.Accept(v)){
+                    found = true;
+                    break;
+                }
+            }
+            if(!found){
+                System.out.println(name + " knocked out");
+                ArrayList<Item> items = new ArrayList<>(inventory);
+                for(Item i : items)
+                    DropItem(i);
+                this.knockoutTimer = 3;
             }
         }
-        if(!found){
-            this.knockoutTimer = 3;
-            for(Item i : this.inventory)
-                DropItem(i);
-        }
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
     }
+
+    /**
+     * Kiirja egy karakter allapotat
+     */
+    public void WriteCharacter(){
+        System.out.println("name " + name);
+        System.out.println("inventory:");
+        for (Item i : inventory)
+            System.out.println(i.name);
+        System.out.println("room" + this.room.name);
+        System.out.println("stunned " + isStunned());
+    }
+
+    public boolean isStunned(){
+        return this.knockoutTimer > 0;
+    }
+
+    public int getActions() { return this.actions; }
 
     /**
      * Rongy hatasa a karakteren
@@ -214,6 +192,8 @@ public abstract class Character {
      * @param c A masik karakter
      */
     public abstract void Notify(Character c);
+
+    public abstract boolean Accept(CharacterTypeVisitor v);
 
     /**
      * A karakter reakcioja egy Studentel valo egy szobaba kerulesre
@@ -227,5 +207,16 @@ public abstract class Character {
      */
     public abstract void See(Lecturer l);
 
+    public abstract void See(Cleaner c);
+
+    private void notifyObservers() {
+        for (ModelObserver observer : observers) {
+            observer.onModelUpdate();
+        }
+    }
+
+    public void addObserver(ModelObserver o){
+        this.observers.add(o);
+    }
 }
 

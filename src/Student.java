@@ -1,52 +1,37 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Student extends Character{
-    public Student(String n) {
+
+    GameController gc;
+    public Student(String n, GameController c) {
         super(n);
+        gc = c;
     }
 
     @Override
     public void RagEffect() {
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".RagEffect()");
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
         return;
     }
 
     @Override
     public void Notify(Character c) {
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".Notify(" + c.name + ")");
-
         c.See(this);
+    }
 
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
+    @Override
+    public boolean Accept(CharacterTypeVisitor v) {
+        return v.visit(this);
     }
 
     @Override
     public void See(Student s) {
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".See(" + s.name + ")");
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
-
         return;
     }
 
     @Override
     public void See(Lecturer l) {
-        int indents = Thread.currentThread().getStackTrace().length - 4;
-        WriteIndents(indents);
-        System.out.println(name + ".See(" + l.name + ")");
-
-
+        System.out.println(l.name + " attack " + name);
         LecturerProtectionVisitor v = new LecturerProtectionVisitor();
         boolean found = false;
         for(int i = 0; i < this.inventory.size(); ++i){
@@ -57,13 +42,21 @@ public class Student extends Character{
         }
 
         if(!found){
-            for(Item i : this.inventory)
+            System.out.println(l.name + " kill " + name);
+            ArrayList<Item> items = new ArrayList<>(inventory);
+            for(Item i : items)
                 DropItem(i);
             this.Leave();
+            this.SetRoom(null);
+            if(gc.getCurrentCharacter() == this)
+                gc.nextCharacter();
         }
+        else {
+            System.out.println(name + " defend");
+        }
+    }
 
-
-        WriteIndents(indents);
-        System.out.println("Visszateres:" + name + ", void");
+    public void See(Cleaner c){
+        c.See(this);
     }
 }
